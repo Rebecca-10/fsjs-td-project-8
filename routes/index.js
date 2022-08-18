@@ -6,9 +6,10 @@ const Book = require('../models').Book;
 
 /* GET home page, always redirects home */
 router.get('/', (async(req, res, next) => {
+   res.redirect('books')
   //res.render('index', { title: 'Express' });
-  const books = await Book.findAll();
-  res.json(books);
+  //const books = await Book.findAll();
+  //res.json(books);
 }));
 
 /* GET books page that shows the full list of books */
