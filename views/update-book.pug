@@ -4,10 +4,12 @@ head
   link(rel='stylesheet' href='../stylesheets/style.css')
 h1 Update Book
 
-if(error)
-  h2.error Oh Geez!
-    ul.error
-      li #{error.message}
+        h1 New Book
+            if(errors)
+                h2.error Sorry! 
+                ul.error    
+                    each error in errors 
+                        li= error.message
       
 form(action="/books/"+ book.id, method="post")
   p
