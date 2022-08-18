@@ -1,7 +1,6 @@
-head
-  title Page Not Found
-  link(rel='stylesheet' href='../public/stylesheets/style.css')
-h1 Server Error #{err.status}
-p #{err.message}
-p
-  a.button(href='/books') Home
+extends layout
+
+block content
+  h1= message
+  h2= error.status
+  pre #{error.stack}
