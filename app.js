@@ -34,6 +34,7 @@ app.use('/', indexRouter);
 
 app.get('/')
 
+//error inside for the routes 
 app.use((req, res, next) => {
   const err = new Error("not-found");
   err.status = 404;
@@ -53,20 +54,16 @@ app.use((err, req, res) => {
     }
   }
 });
-//404
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 
-// error handler
-app.use(function(err, req, res, next) {
-  
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database successful!');
+  } catch (error) {
+    console.error('Error connecting to the database: ', error);
+  }
+})();
 
-  // render the page with error message
-  res.status(err.status || 500);
-  res.render('error');
-});
+
 
 module.exports = app;
