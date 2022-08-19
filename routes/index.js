@@ -40,18 +40,16 @@ router.post('/books/new', async(req, res) => {
 
 });
 /* GET update-book page/form */
-router.get('/books/:id', async(req, res) => {
+router.get('/books/:id', async(req, res, next) => {
   const book = await Book.findByPk(req.params.id)
   console.log(book)
   if (book !== null) {
     res.render('update-book', { book, title: `${book.title}` })
   } else {
-    const error = {
-      message: 'Page not found',
-      status: 404
-    };
+    next()
+  };
     res.render('page-not-found', {error, title: "Page Not Found"});
-  }
+  
 });
 /* UPDATEs book info in the database */
 router.post('/books/:id', async(req, res) => {
