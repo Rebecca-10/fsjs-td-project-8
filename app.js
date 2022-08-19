@@ -32,37 +32,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-app.get('/')
-
 //error inside for the routes 
 app.use((req, res, next) => {
-  const err = new Error("not-found");
+  var err = new Error('Sorry, Error')
+  console.log('404 error handler called');
   err.status = 404;
-  err.message = "404 error ";
-  next(err);
-});
+  res.render('page-not-found', { err })
+  });
 
 //error outside 
-app.use((err, req, res) => {
-  if (err) {
-    if (err.status === 404) {
-      res.status(404)
-      render(err.message, { err });
-    } else {
-      err.message = "Sorry, Error with the server";
-      res.status(500).render('error', { err });
-    }
-  }
-});
 
-(async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection to the database successful!');
-  } catch (error) {
-    console.error('Error connecting to the database: ', error);
-  }
-})();
+  app.use((err, req, res, next) => {
+
+    console.log('500 error being handled');
+    err.status = 500;
+    err.message = `Sorry, Error from server.`
+    console.log(err.status);
+    console.log(err.message);
+    res.status(err.status || 500);
+    res.render('error', { err });
+  
+});
 
 
 
