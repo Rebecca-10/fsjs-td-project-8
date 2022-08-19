@@ -48,8 +48,7 @@ router.get('/books/:id', async(req, res, next) => {
   } else {
     next()
   };
-    res.render('page-not-found', {error, title: "Page Not Found"});
-  
+   
 });
 /* UPDATEs book info in the database */
 router.post('/books/:id', async(req, res) => {
